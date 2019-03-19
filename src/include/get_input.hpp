@@ -1,34 +1,25 @@
 #include <vector>
 #include <string>
-#include <string>
 #include <fstream>
 #include <iostream>
-#include <stdio.h>
 #include <exception>
 
 
-using namespace std;
 
-namespace AOC {
+template<typename T>
+std::vector<T> get_lines(std::string file){
 
-	ifstream getInputStream(std::string file) {
-		ifstream is ("../inputs/" + file );
+	std::ifstream is ("../inputs/" + file );
 
 		if(!is.is_open()) {
-	        throw runtime_error("Could not open puzzle input file");
+	        throw std::runtime_error("Could not open puzzle input file");
 	    }
 
-		return is;
-	}	
+	    std::vector<T> v;
+	    T t;
+    	while(is >> t){
+			v.push_back(t);
+		}
+	    return v;
 
-	vector<string> getLines(std::string day) {
-		vector<string> lines = {};
-		ifstream puzzleInput = getInputStream(day);
-		string line;
-	    while(getline(puzzleInput, line)) {
-	        lines.push_back(line);
-	    }
-	    return lines;
-	}
-		
-}
+};
