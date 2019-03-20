@@ -1,70 +1,58 @@
-
-
-
-
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
+#include <array>
 #include "include/get_input.hpp"
 // https://github.com/Bogdanp/awesome-advent-of-code#c-2
 // https://github.com/Chrinkus/advent-of-code-2018
 // https://github.com/LukeMoll/adventofcode2018/blob/master/src/day03.cpp
 
-using namespace std;
-
 
 struct Claim{
-	string s1 = "null";
-	string s2 = "null";
+	int id;
+	int x;
+	int y;
+	int width;
+	int height;
 };
 
-istream& operator>>(std::istream& is, Claim& claim)
+std::istream& operator>>(std::istream& is, Claim& claim)
 {
     char c;
     int id, x, y, w, h;
-    string str1, str2;
+    std::string str1, str2;
     //    #          @         ,         :         x
-    is >> str1 >> str2;
-    claim = Claim{ str1, str2 };
-
+   	is >> c >> id >> c >> x >> c >> y >> c >> w >> c >> h;
+    claim = Claim{id,x,y,w,h };
     return is;
 }
 
-ostream& operator<<(std::ostream& out, const Claim& claim)
+std::ostream& operator<<(std::ostream& out, const Claim& claim)
 {
-	out << claim.s1 + ", " +  claim.s2;
+	out << claim.id << ", (" << claim.x << ", " << claim.y << "), " << claim.width << " x " << claim.height ;
 	return out;
 }
 
 
 int main(){
 
-	// get_lines<string>("test.txt");
+	std::vector<Claim> input = get_lines<Claim>("day03.txt");
 
-	string file = "day03.txt";
+	std::vector<int> arr(1000);
+	arr = {1};
+	// std::vector<std::vector<int,1000>,1000> arr = {0};
 
-	ifstream is ("../inputs/" + file );
+	// int[] *arr = new int[1000][1000];
 
-		if(!is.is_open()) {
-	        throw runtime_error("Could not open puzzle input file");
-	    }
+	// int* arr = new int[1000*1000];
+	// *arr = {0};
 
-	vector<Claim> v;
-
-	Claim s;
-
-	while(is >> s){
-		v.push_back(s);
-		// cout << s << "\n ";
-	}
-
-	for(auto s : v) cout << s << "\n";
-
-
-	Claim c1 = {"ashdj", "hasjdh"};
-	cout << c1 << "\n";
-
-
-
+	// for(auto x : arr){
+	// 	for(auto y : x){
+	// 			std::cout << y << ", ";
+	// 	}		
+	// 	std::cout << "\n";
+	// }
+	std::cout << arr[4,4];
 }

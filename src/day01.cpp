@@ -52,15 +52,15 @@ int main(){
     std::cout << "Part 1 answer: " << part1 << '\n';
 
 	// std::cout << "Part 2 answer : " << PartTwo(input) << "\n";
-	
 	std::cout << "Part 2 answer : " << PartTwoAlt(input) << "\n";
 
 }
 	/*
-		Notes
-			std::accumulate can be used to calculate statistics
-			An alternate way to loop through a vector multiple times
-			would be to put a regular for loop within a while loop
-			Use const in for loops to prevent elements from being changed
+		Things learned
+			std::accumulate can be used to calculate statistics like the mean
+			Alternate ways of looping through a vector multiple times
+				1) put a for loop in a while loop
+				2) Use iterators to reset to beginning once end is reached
+			Sets can tell you when you're trying to add an object which is already in there
 
 */

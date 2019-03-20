@@ -1,42 +1,30 @@
-
-
-
-
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
 #include <map>
-#include <utility>
+#include<algorithm>
 #include "include/get_input.hpp"
-// https://github.com/Bogdanp/awesome-advent-of-code#c-2
-// https://github.com/Chrinkus/advent-of-code-2018
-// https://github.com/LukeMoll/adventofcode2018/blob/master/src/day03.cpp
 
 
-
-std::pair<bool, bool> check_id(std::string s){
+// Returns a pair of booleans that indicate if the string contains any letter exactly twice and exactly three times
+std::pair<bool, bool> check_id(const std::string & s){
 
 	std::pair<bool,bool> bool_pair = std::make_pair(false,false);
 	std::map<char,int> char_map;
-	for(char c : s){
-			char_map[c] += 1;
-		}
 
-	std::vector<int> counts;
-	for ( std::map<char,int>::iterator it = char_map.begin(); it != char_map.end(); it++ ){
-		counts.push_back(*it);
-	}
+	for(const char c : s) 
+		char_map[c] += 1;
 
 	for ( std::map<char,int>::iterator it = char_map.begin(); it != char_map.end(); it++ )
 		{
-			if(!bool_pair.first && it->second == 2) {
+			if(!bool_pair.first && it->second == 2) 
 				bool_pair.first = true;
-			}
-			if(!bool_pair.second && it->second == 3) {
+
+			if(!bool_pair.second && it->second == 3)
 				bool_pair.second = true;
-			}
-			if( bool_pair.first && bool_pair.second ) break; // Contains a 2 and 3, can stop searching
+			
+			if( bool_pair.first && bool_pair.second )
+				break; // Contains a 2 and 3, can stop searching
 
 		}
 		return bool_pair;
@@ -52,35 +40,37 @@ int PartOne(const std::vector<std::string> & input){
 
 	for(auto x : input){
 
+		count_pair_bool = check_id(x);
+		if(count_pair_bool.first) count_pair.first += 1;
+		if(count_pair_bool.second) count_pair.second += 1;
 
-		// for(char c : x){
-		// 	char_map[c] += 1;
-		// }
-
-		// count_pair_bool = std::make_pair(false,false);
-
-		// for ( std::map<char,int>::iterator it = char_map.begin(); it != char_map.end(); it++ )
-		// {
-		// 	if(!count_pair_bool.first && it->second == 2) {
-		// 		count_pair.first += 1;
-		// 		count_pair_bool.first = true;
-		// 	}
-		// 	if(!count_pair_bool.second && it->second == 3) {
-		// 		count_pair.second += 1;
-		// 		count_pair_bool.second = true;
-		// 	}
-		// 	if( count_pair_bool.first && count_pair_bool.second ) break;
-
-		// }
-
-		// char_map.clear();
 	}
+
 	return count_pair.first*count_pair.second;
 }
 
 
-int PartTwo(const std::vector<std::string> & changes){
-	return -1;
+std::string PartTwo(const std::vector<std::string> & input){
+
+	for(std::vector<std::string>::const_iterator it1 = input.begin(); it1 != input.end(); ++it1){
+		for(std::vector<std::string>::const_iterator it2 = it1+1; it2 != input.end(); ++it2){
+			
+			std::string str1 = *it1;
+
+			auto strit1  = std::mismatch(std::begin(str1),std::end(str1),std::begin(*it2));
+			auto strit2 = std::mismatch(++strit1.first,std::end(str1),++strit1.second);
+
+			// If there is one mismatch && there is not a second mismatch
+			if(strit1.first != std::end(str1) && strit2.first == std::end(str1)){
+				str1.erase(strit1.first);
+				return str1;
+			}
+
+		}
+	}
+
+	return "No solution";
+
 }
 
 
@@ -88,10 +78,22 @@ int main(){
 
 	std::vector<std::string> input = get_lines<std::string>("day02.txt");
 
-
-	std::cout << "Part 1 answer : " << PartOne(input) << "\n";
-	// std::cout << "Part 2 answer : " << PartTwo(input) << "\n";
-
+	std::cout << "Part 1 answer : " << PartOne(input) << "\n"; // Correct answer = 5928
+	std::cout << "Part 2 answer : " << PartTwo(input) << "\n";
 
 
+	return 0;
 }
+
+
+/*
+	Things learnt
+		1) Pairs are good, saves creating multilple count_two and count_three variables
+		2) (Not used here) Can compare pointers when looping over an iterable to ensure 
+			the same object is not checked twice
+		3) std::mismatch
+		4) (Not used here) There are better ways for looping over a vector with iterators, remember to use in
+			future days.
+
+
+*/
