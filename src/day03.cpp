@@ -39,25 +39,12 @@ std::ostream& operator<<(std::ostream& out, const Claim& claim)
 	return out;
 }
 
-bool operator==(const Claim& lhs, const Claim& rhs)
-{
-	return lhs.id == rhs.id;
-}
 
 bool operator!=(const Claim& lhs, const Claim& rhs)
 {
 	return lhs.id != rhs.id;
 }
 
-
-
-int coordToIndex(const std::pair<int,int> & coord){
-	return 1;
-}
-
-std::pair<int,int> indexToCoord(const int & index){
-	return std::make_pair(1,5);
-}
 
 
 bool ClaimsOverlap(const Claim & c1, const Claim & c2){
@@ -102,24 +89,12 @@ void MarkOverlapArea( const Claim & c1, const Claim & c2, std::vector<std::vecto
 }
 
 
-int GetArea(const std::vector<std::vector<int>> & fabric){
-
-	int sum = 0;
-	for(auto row : fabric){
-		for(auto cell : row){
-			sum += cell;
-		}	
-	}
-
-	return sum;
-}
-
-
-
 int main(){
 
 	std::vector<Claim> claims = get_lines<Claim>("day03.txt");
 
+
+	// Create fabric
 	std::vector<std::vector<int>> fabric(fabric_size);
 	std::vector<int> row(fabric_size);
 	std::fill(row.begin(), row.end(),0);
@@ -128,35 +103,33 @@ int main(){
 	for(int i = 0; i < claims.size(); i++){
 		for(int j = i + 1; j < claims.size(); j++){
 
-			if(ClaimsOverlap(claims[i], claims[j])){
+			if(ClaimsOverlap(claims[i], claims[j]))
 				MarkOverlapArea(claims[i], claims[j], fabric);
-			}
-
 		}	
 	}
 
-
-
-
-	std::cout << "Part 1 solution : " << GetArea(fabric) << "\n";
-
-
-	int solution = -1;
-	int overlaps = 0;
-	for(auto c1 : claims){
-		overlaps = 0;
-		for(auto c2 : claims){
-			if(c1 != c2){
-
-				if(ClaimsOverlap(c1,c2)){
-					overlaps += 1;
-				}
-
-			}
+	int p1_solution = std::accumulate(fabric.begin(), fabric.end(),0.0, 
+		[](int current, std::vector<int> row){ 
+			return current + std::accumulate(row.begin(),row.end(),0);
 		}
-		if(overlaps == 0)
-			std::cout << "Part 1 solution : " << c1.id << "\n";
-	}
+	);
+	std::cout << "Part 1 solution : " << p1_solution << "\n";
+
+
+	// bool overlaps = false;
+	// for(auto c1 : claims){
+
+	// 	overlaps = false;
+
+	// 	for(auto c2 : claims)
+	// 		if(c1 != c2 && ClaimsOverlap(c1,c2))
+	// 			overlaps = true;
+
+
+	// 	if(!overlaps)
+	// 		std::cout << "Part 2 solution : " << c1.id << "\n";
+
+	// }
 
 
 	return 0;
