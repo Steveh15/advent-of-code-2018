@@ -1,18 +1,15 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <algorithm>
 #include <vector>
 #include <numeric>
+
 #include "include/get_input.hpp"
-// https://github.com/Bogdanp/awesome-advent-of-code#c-2
-// https://github.com/Chrinkus/advent-of-code-2018
-// https://github.com/LukeMoll/adventofcode2018/blob/master/src/day03.cpp
 
 
 
 constexpr int fabric_size = 1000;
-// int * fabric = new int[fabric_size];
 
 struct Claim{
 	int id;
@@ -26,7 +23,6 @@ std::istream& operator>>(std::istream& is, Claim& claim)
 {
     char c;
     int id, x, y, w, h;
-    std::string str1, str2;
     //    #          @         ,         :         x
    	is >> c >> id >> c >> x >> c >> y >> c >> w >> c >> h;
     claim = Claim{id,x,y,w,h };
@@ -70,15 +66,12 @@ bool ClaimsOverlap(const Claim & c1, const Claim & c2){
 }
 
 
-
 void MarkOverlapArea( const Claim & c1, const Claim & c2, std::vector<std::vector<int>> & fabric){
-
 
 	int overlap_x = std::max(c1.x, c2.x);
 	int overlap_y = std::max(c1.y, c2.y);
 	int overlap_width = std::min(c1.x + c1.width, c2.x + c2.width) - overlap_x;
 	int overlap_height = std::min(c1.y + c1.height, c2.y + c2.height) - overlap_y;
-
 
 	for(int i = overlap_x; i < overlap_x + overlap_width; i++){
 		for(int j = overlap_y; j < overlap_y + overlap_height; j++){
@@ -89,10 +82,7 @@ void MarkOverlapArea( const Claim & c1, const Claim & c2, std::vector<std::vecto
 }
 
 
-int main(){
-
-	std::vector<Claim> claims = get_lines<Claim>("day03.txt");
-
+int PartOne(const std::vector<Claim> & claims){
 
 	// Create fabric
 	std::vector<std::vector<int>> fabric(fabric_size);
@@ -108,32 +98,44 @@ int main(){
 		}	
 	}
 
-	int p1_solution = std::accumulate(fabric.begin(), fabric.end(),0.0, 
+	int p1_solution = std::accumulate(fabric.begin(), fabric.end(),0, 
 		[](int current, std::vector<int> row){ 
 			return current + std::accumulate(row.begin(),row.end(),0);
 		}
 	);
-	std::cout << "Part 1 solution : " << p1_solution << "\n";
+
+	return p1_solution;
+}
 
 
-	// bool overlaps = false;
-	// for(auto c1 : claims){
+int PartTwo(const std::vector<Claim> & claims){
+	bool overlaps = false;
+	for(auto c1 : claims){
 
-	// 	overlaps = false;
+		overlaps = false;
 
-	// 	for(auto c2 : claims)
-	// 		if(c1 != c2 && ClaimsOverlap(c1,c2))
-	// 			overlaps = true;
+		for(auto c2 : claims)
+			if(c1 != c2 && ClaimsOverlap(c1,c2))
+				overlaps = true;
+
+		if(!overlaps)
+			return c1.id;
+
+	}
+	return -1;
+}
 
 
-	// 	if(!overlaps)
-	// 		std::cout << "Part 2 solution : " << c1.id << "\n";
+int main(){
 
-	// }
+	std::vector<Claim> claims = get_lines<Claim>("day03.txt");
+
+
+	std::cout << "Part 1 solution : " << PartOne(claims) << "\n";
+	std::cout << "Part 2 solution : " << PartTwo(claims) << "\n";
 
 
 	return 0;
-
 }
 
 /*
@@ -145,5 +147,6 @@ int main(){
 			the heap. Using normal pointers here, will try using smart pointers / containers on future
 			days.
 		4) const and constexpr are different
+		5) Lambdas are powerful
 
 */
