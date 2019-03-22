@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
 #include <map>
 #include <set>
 #include <numeric>
+
 #include "include/get_input.hpp"
 
 
@@ -57,7 +57,7 @@ int main(){
 }
 	/*
 		Things learned
-			std::accumulate can be used to calculate statistics like the mean
+			std::accumulate can be used to calculate statistics like the sum
 			Alternate ways of looping through a vector multiple times
 				1) put a for loop in a while loop
 				2) Use iterators to reset to beginning once end is reached

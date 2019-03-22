@@ -1,13 +1,10 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
 #include <numeric>
 
 #include "include/get_input.hpp"
-
-
 
 constexpr int fabric_size = 1000;
 
@@ -144,8 +141,7 @@ int main(){
 		1) Can overwrite >> and << operators pretty easily to make in/outputing data very easy.	
 		2) Trick to get index when using a range-for loop, int index = &element - &container[0];
 		3) Cannot declare large stuff (like an array with a million ints) on the stack, need to do it on
-			the heap. Using normal pointers here, will try using smart pointers / containers on future
-			days.
+			the heap. 
 		4) const and constexpr are different
 		5) Lambdas are powerful
 

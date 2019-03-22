@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 #include <map>
-#include<algorithm>
+#include <algorithm>
+
 #include "include/get_input.hpp"
 
 
