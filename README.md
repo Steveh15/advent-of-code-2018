@@ -5,4 +5,5 @@ Carried out as a learning exercise to become more familiar with C++. I solved ea
 
 
 Collection of repos with solutions 		-> https://github.com/Bogdanp/awesome-advent-of-code#c-2
+
 Most consulted repo (thanks Chrinkus) 	-> https://github.com/Chrinkus/advent-of-code-2018
