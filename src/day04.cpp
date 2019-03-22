@@ -1,9 +1,11 @@
+
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <algorithm>
+#include <set>
 #include <vector>
-#include <numeric>
+#include <string>
+#include <regex>
 
 #include "include/get_input.hpp"
 // https://github.com/Bogdanp/awesome-advent-of-code#c-2
@@ -19,6 +21,28 @@ struct Log{
 	int hour;
 	int minute;
 	std::string message;
+};
+
+
+class Guard{
+
+	public: 
+		int id;
+
+
+		Guard(int id_) : id(id_){
+
+	}
+
+
+	bool operator==(const Guard & rhs) const {
+		return id == rhs.id;
+	}
+
+	bool operator<(const Guard & rhs) const {
+		return id < rhs.id;
+	}
+
 };
 
 std::istream& operator>>(std::istream& is, Log& log)
@@ -38,18 +62,41 @@ std::ostream& operator<<(std::ostream& out, const Log& log)
 	return out;
 }
 
-bool operator<(const Log & log1, const Log & l2){
-	return true;
-}
 
-bool operator>(const Log & log1, const Log & l2){
-	return true;
+// This would be unecessary if I just read the logs in as strings,
+// but this is a useful exercise in getting familiar with std::sort
+bool operator<(const Log & a, const Log & b){
+	if(a.year < b.year)
+		return true;
+	else if(a.year > b.year)
+		return false;
+	else{
+		if(a.month < b.month)
+			return true;
+		else if(a.month > b.month)
+			return false;
+		else {
+			if(a.day < b.day)
+				return true;
+			else if(a.day > b.day)
+				return false;
+			else {
+				if(a.hour < b.hour)
+					return true;
+				else if(a.hour > b.hour)
+					return false;
+				else {
+					if(a.minute < b.minute)
+						return true;
+					else if(a.minute > b.minute)
+						return false;
+					else 
+						return true;
+				}
+			}
+		}
+	} 
 }
-
-// bool operator!=(const Claim& lhs, const Claim& rhs)
-// {
-// 	return lhs.id != rhs.id;
-// }
 
 
 
@@ -57,8 +104,46 @@ int main(){
 
 	std::vector<Log> logs = get_lines<Log>("day04.txt");
 
-	for(auto l : logs)
+	std::sort(logs.begin(), logs.end());
+
+	static const std::regex id_pat {R"(Guard\s#(\d+))"};
+    std::smatch matches;
+    std::set<Guard> guards;
+
+    int current_guard;
+
+	for(auto l : logs){
+		std::regex_search(l.message, matches, id_pat);
 		std::cout << l << "\n";
+		if(!matches.empty()){
+			// std::cout << matches[1] << "\n";
+			current_guard = std::stoi(matches[1]);
+			guards.insert(Guard(current_guard));
+		}
+
+	}
+
+
+	std::cout << guards.size() << "\n";
+
+
+
+/*
+	1) Search for all terms that contains "Guard #xxxx", create a guar
+
+*/
+ //    static const std::regex ts_pat {R"(:(\d{2}))"};
+	// auto test = logs[0].message;
+
+
+	// for(auto t : matches){
+	// 	std::cout << t << "\n";
+	// }
+
+	// std::cout << test << "\n";
+
+
+
 
 	return 0;
 }
