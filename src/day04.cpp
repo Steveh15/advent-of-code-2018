@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <set>
 // #include <pair>
+#include <array>
 #include <vector>
 #include <string>
 #include <regex>
@@ -17,23 +18,29 @@
 
 
 
-struct Log{
-	int year;
-	int month;
-	int day;
-	int hour;
-	int minute;
-	std::string message;
+// Wrapper around an array to initate default values to 0;
+class SleepArray{
+public:
+	std::array<int,60> arr;
+	SleepArray(){
+		arr = {0};
+	}
 };
 
 
-class Guard{
+
+class Guard {
 
 	public: 
 		int id;
 
-		std::map<std::string, int> sleep_minutes;
-		std::map<std::string, int> wake_minutes;
+		std::map<std::string, SleepArray> sleep_map;
+
+
+		// Guard(){
+		// 	id = 0;
+		// }
+
 
 		Guard(int id_) : id(id_){
 
@@ -47,15 +54,35 @@ class Guard{
 			return id < rhs.id;
 		}
 
-		void addWakeMinute( const std::string & date, const int & min){
-			wake_minutes[date] = min;
-		}
+		// void addWakeMinute( const std::string & date, const int & min){
+		// 	wake_minutes[date] = min;
+		// }
 
-		void addSleepMinute( const std::string & date, const int & min){
-			sleep_minutes[date] = min;
-		}
+		// void addSleepMinute( const std::string & date, const int & min){
+		// 	sleep_minutes[date] = min;
+		// }
 
+
+
+		friend std::ostream &operator<<( std::ostream &output, const Guard &g) { 
+			output << "F : " << g.id;
+			return output;            
+	    }
 };
+
+
+
+
+struct Log{
+	int year;
+	int month;
+	int day;
+	int hour;
+	int minute;
+	std::string message;
+};
+
+
 
 std::istream& operator>>(std::istream& is, Log& log)
 {
@@ -72,6 +99,11 @@ std::ostream& operator<<(std::ostream& out, const Log& log)
 {
 	out << "[" << log.year << "-" << log.month << "-" << log.day << " " << log.hour << ":" << log.minute << "] " << log.message;
 	return out;
+}
+
+std::string getDateString(const Log & l){
+	std::string date =  std::to_string(l.year) + std::string("-") + std::to_string(l.month) + std::string("-") +  std::to_string(l.day);
+	return date;
 }
 
 
@@ -120,29 +152,49 @@ int main(){
 
 	static const std::regex id_pat {R"(Guard\s#(\d+))"};
     std::smatch matches;
-    // std::set<Guard> guards;
     std::unordered_map<int, Guard> guards;
-    // std::map<int, Guard> guards;
 
-    std::string 
 
     int current_guard_id;
 
 	for(auto l : logs){
 		std::regex_search(l.message, matches, id_pat);
-		std::cout << l << "\n";
+		// std::cout << l << "\n";
 		if(!matches.empty()){
-			// std::cout << matches[1] << "\n";
-			// current_guard_id = std::stoi(matches[1]);
-			// guards.insert(Guard(current_guard));
-			// guards[current_guard_id] = Guard(current_guard_id);
-			guards.insert(std::make_pair(std::stoi(matches[1]),Guard(current_guard_id)));
+			current_guard_id = std::stoi(matches[1]);
+			guards.insert(std::make_pair(current_guard_id,Guard(current_guard_id)));
 		}
-
+		if(l.message == " wakes up"){
+			std::cout << getDateString(l) << "\n";
+		}
 	}
 
 
-	std::cout << guards.size() << "\n";
+
+	// SleepMap s;
+	// auto b = s.blah;
+	// std::cout << s.blah << "\n";
+
+	// for(auto i : s.sm){
+	// 	std::cout << i << "\n";
+	// }
+
+
+    // Guard g = Guard(1);
+    // std::cout << g << "\n";
+
+
+    // std::map<int,Guard> newmap;
+
+    // newmap.insert(std::make_pair(15,Guard(23)));
+
+    // auto it = newmap.find(15);
+
+    // auto blah = newmap[15];
+    // std::cout << blah << "\n";
+    // std::cout << it->second << "\n";
+
+	// std::cout << guards.size() << "\n";
 
 
 
@@ -180,5 +232,10 @@ int main(){
 			map:
 				good for iterating over, adding/removing elements
 				slower lookup
+
+		2) using [] on a map requires that the object being accessed has a default constructor. If you don't want
+			a default constructor, using find.
+
+		3) Use std::to_string and std::string() when concatenating strings, then can do it with + operator as normal
 
 */
