@@ -17,8 +17,9 @@ std::vector<T> get_lines(std::string file){
 
 	    std::vector<T> v;
 	    T t;
-    	while(is >> t){
-			v.push_back(t);
+	    std::string line;
+    	while(getline(is,line)){
+			v.push_back(line);
 		}
 	    return v;
 
