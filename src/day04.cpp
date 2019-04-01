@@ -10,6 +10,7 @@
 #include <regex>
 #include <unordered_map>
 #include <map>
+#include <numeric>
 
 #include "include/get_input.hpp"
 // https://github.com/Bogdanp/awesome-advent-of-code#c-2
@@ -31,8 +32,11 @@ public:
 
 class Guard {
 
-	public: 
+
+private:
 		int id;
+
+	public: 
 
 		std::map<std::string, SleepArray> sleep_map;
 
@@ -61,7 +65,6 @@ class Guard {
 		// void addSleepMinute( const std::string & date, const int & min){
 		// 	sleep_minutes[date] = min;
 		// }
-
 
 
 		friend std::ostream &operator<<( std::ostream &output, const Guard &g) { 
@@ -155,21 +158,79 @@ int main(){
     std::unordered_map<int, Guard> guards;
 
 
+    std::unordered_map<int, int> gsm;
+    std::unordered_map<int, SleepArray> gsm2;
+
+
+
+
     int current_guard_id;
+    double sleep_min = 0;
+    double sleep_wake = 0;
 
 	for(auto l : logs){
 		std::regex_search(l.message, matches, id_pat);
 		// std::cout << l << "\n";
 		if(!matches.empty()){
 			current_guard_id = std::stoi(matches[1]);
-			guards.insert(std::make_pair(current_guard_id,Guard(current_guard_id)));
+			// std::cout << "Current guard : " << current_guard_id << "\n";
+			// guards.insert(std::make_pair(current_guard_id,Guard(current_guard_id)));
+		}
+		if(l.message == " falls asleep"){
+			// std::cout << getDateString(l) << "\n";
+			// std::cout << "Asleep at : " << l.minute << "\n";
+			sleep_min = l.minute;
 		}
 		if(l.message == " wakes up"){
-			std::cout << getDateString(l) << "\n";
+			// std::cout << getDateString(l) << "\n";
+			// std::cout << "Wake up at : " << l.minute << "\n";
+			gsm[current_guard_id] +=l.minute - sleep_min;
+
+			for(int i = sleep_min; i < l.minute; i++){
+				gsm2[current_guard_id].arr[i] += 1;
+			}	
 		}
+
 	}
 
+	for(auto & m : gsm2){
+		std::cout << m.first << "\n";
+		for(auto min : m.second.arr){
+			std::cout << min << " ";
+		}
+		std::cout << "\ntotal << " << std::accumulate(m.second.arr.begin(), m.second.arr.end(),0) << "\n";
+		std::cout << "\n\n";
+	}
 
+	auto it = std::max_element(gsm2.begin(),gsm2.end(), [](std::pair<int,SleepArray> a, std::pair<int,SleepArray> b){
+		return std::accumulate(a.second.arr.begin(), a.second.arr.end(),0) < std::accumulate(b.second.arr.begin(), b.second.arr.end(),0);
+	});
+
+	std::cout << it->first << "\n";
+
+	auto it2 = std::max_element(it->second.arr.begin(), it->second.arr.end());
+	std::cout << it2 - it->second.arr.begin() << "\n";
+
+	std::cout << "Part one answer : " << it->first*(it2 - it->second.arr.begin()) << "\n";
+
+
+	/*
+		Answer is 77084,
+			2753*28
+	
+		2753
+0 1 1 2 4 6 6 6 7 7 7 8 8 9 10 10 10 11 11 11 12 12 12 12 12 12 13 14 14 14 13 13 12 12 11 11 11 11 12 11 11 11 10 10 10 10 9 9 9 9 9 9 6 5 5 3 3 3 2 1 
+total << 523
+
+		Get most slept guard
+			Use max_element
+		Get most inute for that guard
+			Use max_element?
+			it - vec.begin()
+	*/
+
+
+	// std::cout << gsm2[12].arr[2] << "\n";
 
 	// SleepMap s;
 	// auto b = s.blah;
@@ -238,4 +299,11 @@ int main(){
 
 		3) Use std::to_string and std::string() when concatenating strings, then can do it with + operator as normal
 
+		4) Friend functions allow you to give specific classes/functions access to private methods and data (rather than having
+			to give all functions/classes access by setting it public). The case above we have used an operator which takes
+			a guard as an argument but still has access to that gaurds private data.
+
+			In general terms, this means we can write functions in the form f(x) instead of x.f() where it is convenient. In our case
+			we have essentially used f(x,y) instead of x.f(y).
+	
 */
