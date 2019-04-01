@@ -1,22 +1,15 @@
 
 #include <iostream>
-#include <string>
 #include <algorithm>
-#include <set>
-// #include <pair>
-#include <array>
+#include <numeric>
+#include <string>
 #include <vector>
+#include <array>
+#include <unordered_map>
 #include <string>
 #include <regex>
-#include <unordered_map>
-#include <map>
-#include <numeric>
 
 #include "include/get_input.hpp"
-// https://github.com/Bogdanp/awesome-advent-of-code#c-2
-// https://github.com/Chrinkus/advent-of-code-2018
-// https://github.com/LukeMoll/adventofcode2018/blob/master/src/day03.cpp
-
 
 
 // Wrapper around an array to initate default values to 0;
@@ -28,54 +21,6 @@ public:
 	}
 };
 
-
-
-class Guard {
-
-
-private:
-		int id;
-
-	public: 
-
-		std::map<std::string, SleepArray> sleep_map;
-
-
-		// Guard(){
-		// 	id = 0;
-		// }
-
-
-		Guard(int id_) : id(id_){
-
-		}
-
-		bool operator==(const Guard & rhs) const {
-			return id == rhs.id;
-		}
-
-		bool operator<(const Guard & rhs) const {
-			return id < rhs.id;
-		}
-
-		// void addWakeMinute( const std::string & date, const int & min){
-		// 	wake_minutes[date] = min;
-		// }
-
-		// void addSleepMinute( const std::string & date, const int & min){
-		// 	sleep_minutes[date] = min;
-		// }
-
-
-		friend std::ostream &operator<<( std::ostream &output, const Guard &g) { 
-			output << "F : " << g.id;
-			return output;            
-	    }
-};
-
-
-
-
 struct Log{
 	int year;
 	int month;
@@ -84,8 +29,6 @@ struct Log{
 	int minute;
 	std::string message;
 };
-
-
 
 std::istream& operator>>(std::istream& is, Log& log)
 {
@@ -98,15 +41,11 @@ std::istream& operator>>(std::istream& is, Log& log)
     return is;
 }
 
+// Not used but useful for debugging
 std::ostream& operator<<(std::ostream& out, const Log& log)
 {
 	out << "[" << log.year << "-" << log.month << "-" << log.day << " " << log.hour << ":" << log.minute << "] " << log.message;
 	return out;
-}
-
-std::string getDateString(const Log & l){
-	std::string date =  std::to_string(l.year) + std::string("-") + std::to_string(l.month) + std::string("-") +  std::to_string(l.day);
-	return date;
 }
 
 
@@ -155,126 +94,52 @@ int main(){
 
 	static const std::regex id_pat {R"(Guard\s#(\d+))"};
     std::smatch matches;
-    std::unordered_map<int, Guard> guards;
-
-
-    std::unordered_map<int, int> gsm;
-    std::unordered_map<int, SleepArray> gsm2;
-
-
+    std::unordered_map<int, SleepArray> gsm;
 
 
     int current_guard_id;
     double sleep_min = 0;
-    double sleep_wake = 0;
 
 	for(auto l : logs){
 		std::regex_search(l.message, matches, id_pat);
-		// std::cout << l << "\n";
 		if(!matches.empty()){
 			current_guard_id = std::stoi(matches[1]);
-			// std::cout << "Current guard : " << current_guard_id << "\n";
-			// guards.insert(std::make_pair(current_guard_id,Guard(current_guard_id)));
 		}
 		if(l.message == " falls asleep"){
-			// std::cout << getDateString(l) << "\n";
-			// std::cout << "Asleep at : " << l.minute << "\n";
 			sleep_min = l.minute;
 		}
 		if(l.message == " wakes up"){
-			// std::cout << getDateString(l) << "\n";
-			// std::cout << "Wake up at : " << l.minute << "\n";
-			gsm[current_guard_id] +=l.minute - sleep_min;
-
 			for(int i = sleep_min; i < l.minute; i++){
-				gsm2[current_guard_id].arr[i] += 1;
+				gsm[current_guard_id].arr[i] += 1;
 			}	
 		}
 
 	}
 
-	for(auto & m : gsm2){
-		std::cout << m.first << "\n";
-		for(auto min : m.second.arr){
-			std::cout << min << " ";
-		}
-		std::cout << "\ntotal << " << std::accumulate(m.second.arr.begin(), m.second.arr.end(),0) << "\n";
-		std::cout << "\n\n";
-	}
 
-	auto it = std::max_element(gsm2.begin(),gsm2.end(), [](std::pair<int,SleepArray> a, std::pair<int,SleepArray> b){
+	// Part one
+
+	// Find guard with most minutes asleep
+	auto guard_it = std::max_element(gsm.begin(),gsm.end(), [](std::pair<int,SleepArray> a, std::pair<int,SleepArray> b){
 		return std::accumulate(a.second.arr.begin(), a.second.arr.end(),0) < std::accumulate(b.second.arr.begin(), b.second.arr.end(),0);
 	});
+	// Find their most asleep minute
+	auto min_it = std::max_element(guard_it->second.arr.begin(), guard_it->second.arr.end());
 
-	std::cout << it->first << "\n";
+	std::cout << "Part one answer : " << guard_it->first*(min_it - guard_it->second.arr.begin()) << "\n";
 
-	auto it2 = std::max_element(it->second.arr.begin(), it->second.arr.end());
-	std::cout << it2 - it->second.arr.begin() << "\n";
-
-	std::cout << "Part one answer : " << it->first*(it2 - it->second.arr.begin()) << "\n";
-
-
-	/*
-		Answer is 77084,
-			2753*28
 	
-		2753
-0 1 1 2 4 6 6 6 7 7 7 8 8 9 10 10 10 11 11 11 12 12 12 12 12 12 13 14 14 14 13 13 12 12 11 11 11 11 12 11 11 11 10 10 10 10 9 9 9 9 9 9 6 5 5 3 3 3 2 1 
-total << 523
 
-		Get most slept guard
-			Use max_element
-		Get most inute for that guard
-			Use max_element?
-			it - vec.begin()
-	*/
+	// Part two
 
+	// Find guard who is most asleep at a specific minute
+	guard_it = std::max_element(gsm.begin(),gsm.end(), [](std::pair<int,SleepArray> a, std::pair<int,SleepArray> b){
+		return *std::max_element(a.second.arr.begin(), a.second.arr.end()) < *std::max_element(b.second.arr.begin(), b.second.arr.end());
+	});
+	// Find that minute
+	min_it = std::max_element(guard_it->second.arr.begin(),guard_it->second.arr.end());
 
-	// std::cout << gsm2[12].arr[2] << "\n";
-
-	// SleepMap s;
-	// auto b = s.blah;
-	// std::cout << s.blah << "\n";
-
-	// for(auto i : s.sm){
-	// 	std::cout << i << "\n";
-	// }
-
-
-    // Guard g = Guard(1);
-    // std::cout << g << "\n";
-
-
-    // std::map<int,Guard> newmap;
-
-    // newmap.insert(std::make_pair(15,Guard(23)));
-
-    // auto it = newmap.find(15);
-
-    // auto blah = newmap[15];
-    // std::cout << blah << "\n";
-    // std::cout << it->second << "\n";
-
-	// std::cout << guards.size() << "\n";
-
-
-
-/*
-	1) Search for all terms that contains "Guard #xxxx", create a guar
-
-*/
- //    static const std::regex ts_pat {R"(:(\d{2}))"};
-	// auto test = logs[0].message;
-
-
-	// for(auto t : matches){
-	// 	std::cout << t << "\n";
-	// }
-
-	// std::cout << test << "\n";
-
-
-
+	std::cout << "Part two answer : " << guard_it->first*std::distance(guard_it->second.arr.begin(),min_it) << "\n";
 
 	return 0;
 }
@@ -304,6 +169,12 @@ total << 523
 			a guard as an argument but still has access to that gaurds private data.
 
 			In general terms, this means we can write functions in the form f(x) instead of x.f() where it is convenient. In our case
-			we have essentially used f(x,y) instead of x.f(y).
+			we have essentially used f(x,y) instead of x.f(y).	
+
+			NOTE : didn't end up using it this code, so there are no friend functions here.
+
+		5) Two different methods for finding index of iterator, see discussion here :
+		 https://stackoverflow.com/questions/2152986/what-is-the-most-effective-way-to-get-the-index-of-an-iterator-of-an-stdvector
 	
+		6) min_it is an excellent pun and it's a shame no one will ever read this code in order to appreciate it.
 */
