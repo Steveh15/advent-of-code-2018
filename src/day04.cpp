@@ -137,7 +137,7 @@ int main(){
 		return *std::max_element(a.second.arr.begin(), a.second.arr.end()) < *std::max_element(b.second.arr.begin(), b.second.arr.end());
 	});
 	// Find that minute
-	min_it = std::max_element(guard_it->second.arr.begin(),guard_it->second.arr.end());
+	min_it = std::min_element(guard_it->second.arr.begin(),guard_it->second.arr.end());
 
 	std::cout << "Part two answer : " << guard_it->first*std::distance(guard_it->second.arr.begin(),min_it) << "\n";
 
