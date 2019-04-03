@@ -1,9 +1,7 @@
-#include <vector>
 #include <iostream>
+#include <vector>
 #include <algorithm>
 #include <numeric>
-#include <string>
-#include <map>
 
 #include "include/get_input.hpp"
 
@@ -35,20 +33,26 @@ public:
 
 
 	static int SumMetadataAlt(const Metadata & m){
-
-		if(m.child_nodes.size() == 0)
+		if(m.child_nodes.size() == 0){
 			return SumMetadata(m);
+		}
 		else{
 			std::vector<int> indexes = m.metadata;
-			indexes.erase();
-		}
+			indexes.erase(std::remove_if(indexes.begin(), indexes.end(), [m](int a){
+				return a > (m.child_nodes.size());
+			}),indexes.end());
 
-		int sum = std::accumulate(m.metadata.begin(), m.metadata.end(),0);
-		int sum_children = std::accumulate(m.child_nodes.begin(), m.child_nodes.end(), 0, [](int sum, Metadata a){
-			return sum + SumMetadata(a);
-		});
-		return sum + sum_children;
+			int sum = 0;
+			for(auto i : indexes){
+				Metadata temp = m.child_nodes[i-1];
+				 sum += SumMetadataAlt(temp);
+			}
+			return sum;
+		}
 	}
+
+
+
 
 };
 
@@ -61,13 +65,13 @@ int main(){
 
 	auto it = input.begin();
 
-	Metadata * parent = new Metadata(it);
+	Metadata parent(it);
 
-	std::cout << "Part one solution : " << Metadata::SumMetadata(*parent) << "\n";
+	std::cout << "Part one solution : " << Metadata::SumMetadata(parent) << "\n";
 
-	std::cout << "Part two solution : " << Metadata::SumMetadataAlt(*parent) << "\n";
+	std::cout << "Part two solution : " << Metadata::SumMetadataAlt(parent) << "\n";
 
-	delete parent;
+
 
 	return 0;
 }
