@@ -77,7 +77,7 @@ std::string PartTwo(const std::vector<std::string> & input){
 
 int main(){
 
-	std::vector<std::string> input = get_lines<std::string>("day02.txt");
+	std::vector<std::string> input = get_input<std::string>("day02.txt");
 
 	std::cout << "Part 1 answer : " << PartOne(input) << "\n"; // Correct answer = 5928
 	std::cout << "Part 2 answer : " << PartTwo(input) << "\n";

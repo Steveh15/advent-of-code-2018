@@ -46,7 +46,7 @@ int PartTwoAlt(const std::vector<int> & changes){
 
 int main(){
 
-	std::vector<int> input = get_lines<int>("day01.txt");
+	std::vector<int> input = get_input<int>("day01.txt");
 
 	auto part1 = std::accumulate(std::begin(input), std::end(input), 0);
     std::cout << "Part 1 answer: " << part1 << '\n';

@@ -125,7 +125,7 @@ int PartTwo(const std::vector<Claim> & claims){
 
 int main(){
 
-	std::vector<Claim> claims = get_lines<Claim>("day03.txt");
+	std::vector<Claim> claims = get_input<Claim>("day03.txt");
 
 
 	std::cout << "Part 1 solution : " << PartOne(claims) << "\n";
