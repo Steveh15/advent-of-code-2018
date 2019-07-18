@@ -1,0 +1,730 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"min_",
+				"min_x"
+			],
+			[
+				"Coor",
+				"Coord"
+			],
+			[
+				"max_",
+				"max_y"
+			],
+			[
+				"Mi",
+				"min_y"
+			],
+			[
+				"conn",
+				"connect"
+			],
+			[
+				"sle",
+				"sleep_map"
+			],
+			[
+				"count",
+				"count_pair"
+			],
+			[
+				"poly",
+				"polygon1"
+			],
+			[
+				"vecto",
+				"vector\tstandard header"
+			],
+			[
+				"be",
+				"begin"
+			],
+			[
+				"print",
+				"println\tprintln!(…)"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/day04.cpp",
+			"settings":
+			{
+				"buffer_size": 5031,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/day07.cpp",
+			"settings":
+			{
+				"buffer_size": 1224,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/day08.cpp",
+			"settings":
+			{
+				"buffer_size": 1506,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/day6.cpp",
+			"settings":
+			{
+				"buffer_size": 1680,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "inputs/day06.txt",
+			"settings":
+			{
+				"buffer_size": 433,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/day05.cpp",
+			"settings":
+			{
+				"buffer_size": 1076,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "inputs/day06-test.txt",
+			"settings":
+			{
+				"buffer_size": 29,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Makefile/Make.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/Rust/Cargo.sublime-build",
+					""
+				],
+				[
+					"Packages/Rust/Cargo.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Rust/Cargo.sublime-build",
+					"Test"
+				],
+				[
+					"Packages/Rust/Cargo.sublime-build",
+					"Bench"
+				],
+				[
+					"Packages/Rust/Cargo.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/Rust/Rust.sublime-build",
+					""
+				],
+				[
+					"Packages/Rust/Rust.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/Rust/Cargo.sublime-build",
+				"Run"
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/msvc.sublime-build",
+					""
+				],
+				[
+					"Packages/User/msvc.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/msvc.sublime-build",
+				"Run"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"ave",
+				"Project: Save As"
+			],
+			[
+				"proj",
+				"Project: Close"
+			],
+			[
+				"r",
+				"Rename File"
+			],
+			[
+				"ren",
+				"Rename File"
+			],
+			[
+				"pretti",
+				"HTMLPrettify"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"save",
+				"Project: Save As"
+			],
+			[
+				"R",
+				"Rename File"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/inputs",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/include"
+	],
+	"file_history":
+	[
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/inputs/day06.txt",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day03.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day01.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day02.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day05.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/inputs/day05.txt",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day07.cpp",
+		"/C/Users/steph/Google Drive/drivers.txt",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/app.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/controllers/bookinstanceController.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/bookinstance_list.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/models/bookinstance.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/controllers/authorController.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/author_list.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/controllers/genreController.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/genre_detail.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/genre_list.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/index.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/book_list.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/controllers/bookController.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/routes/index.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/views/layout.pug",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/public/stylesheets/style.sass",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/populatedb.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/models/genre.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/models/book.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/models/author.js",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/routes/catalog.js",
+		"/C/Users/steph/my-files/dev/web/test-node/.gitignore",
+		"/C/Users/steph/my-files/dev/web/test-node/index.html",
+		"/C/Users/steph/my-files/dev/web/express-locallibrary-tutorial/package.json",
+		"/C/Users/steph/my-files/dev/web/test-node/app.js",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/03_World/Source/Game.cpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/03_World/Include/Book/World.hpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/03_World/Source/World.cpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/03_World/Include/Book/Game.hpp",
+		"/C/Users/steph/my-files/dev/web/test-node/hello.js",
+		"/C/Users/steph/my-files/dev/web/test-node/package.json",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/01_Intro/Include/Book/Game.hpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/01_Intro/Include/Book/StringHelpers.hpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/01_Intro/Include/Book/StringHelpers.inl",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/01_Intro/Source/Main.cpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/01_Intro/Source/Game.cpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/02_Resources/Include/Book/ResourceHolder.hpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/02_Resources/Include/Book/ResourceHolder.inl",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/02_Resources/Source/Main.cpp",
+		"/C/Users/steph/my-files/dev/gamedev/SFML pdf/03_World/Source/Main.cpp",
+		"/C/Users/steph/Desktop/backstory",
+		"/C/end",
+		"/C/Users/steph/Google Drive/stats.txt",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/include/get_input.hpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day08.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/day04.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/inputs/day01.txt",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/inputs/test.txt",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/p1/puzzle1_2.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/p1/puzzle1_1.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/p2/p2_1.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/address.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/src/inputs/test.txt",
+		"/C/Users/steph/Desktop/Holiday Dates.txt",
+		"/C/Users/steph/my-files/dev/AdventOfCode2018/AdventOfCode2018/get_input.hpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018-old/p3/p3_1 - Copy (3).cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018-old/p3/p3_1.cpp",
+		"/C/Users/steph/Desktop/13th, 17th April",
+		"/C/Users/steph/my-files/dev/AdventOfCode2018/AdventOfCode2018/p3_1.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p3/p3_1 - Copy (3).cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p3/p3_1.cpp",
+		"/C/Users/steph/Desktop/ref number ED1-0PA-CHU.txt",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p3/p3_1 - Copy.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p3/p2_1.cpp",
+		"/C/Users/steph/my-files/dev/temp_projects/temp/main.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p1/puzzle1_1.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p1/puzzle1_2.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p2/p2_1.cpp",
+		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/p2/p2_2.cpp",
+		"/C/Users/steph/AppData/Roaming/Sublime Text 3/Packages/User/msvc.sublime-build",
+		"/C/Users/steph/Desktop/Eldar Guardians/paint-guide.txt",
+		"/C/Users/steph/my-files/dev/temp_projects/compile/main.cpp",
+		"/C/Users/steph/my-files/dev/temp_projects/compile/add.h",
+		"/C/Users/steph/my-files/dev/temp_projects/compile/add.cpp",
+		"/C/Users/steph/my-files/dev/temp_projects/compile/TestClass.cpp",
+		"/C/Users/steph/my-files/dev/temp_projects/compile/TestClass.h",
+		"/C/Users/steph/my-files/dev/temp_projects/compile/hello.cpp",
+		"/C/Users/steph/my-files/dev/cpp-projects/Advent of Code 2018/Advent of Code 2018/inputs/input1_1.txt",
+		"/C/Users/steph/my-files/dev/web/spending-tracker/public/index.html",
+		"/C/Users/steph/my-files/dev/web/spending-tracker/public/js/main.js",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/Gruntfile.js",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/pug/test.js",
+		"/C/Users/steph/my-files/dev/web/frostgrave-tools/pug/test.js",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/docs/css/main.css",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/pug/includes/header.pug",
+		"/C/Users/steph/my-files/dev/web/yawb/public/css/main.css",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/pug/includes/navbar.pug",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/package.json",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/test.html",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/pug/index.pug",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/pug/news.pug",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/docs/js/main.js",
+		"/C/Users/steph/my-files/dev/web/yawb/public/index.html",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/docs/img3 - Copy (2).jpg",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/test",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/Gruntfile.coffee",
+		"/C/Users/steph/my-files/dev/web/basic-website-template/docs/includes/header.html",
+		"/C/Users/steph/Downloads/fontello-a3b60b8e/fontello-a3b60b8e/css/wu-fonts.css",
+		"/C/Users/steph/my-files/dev/web/old-stuff/old/underworlds-deck-builder/docs/New folder/index.html",
+		"/C/Users/steph/my-files/dev/web/old-stuff/old/underworlds-deck-builder/docs/css/style.css",
+		"/C/Users/steph/my-files/dev/web/old-stuff/old/underworlds-deck-builder/docs/js/yawb.js",
+		"/C/Users/steph/Downloads/fontello-1daf636d/fontello-1daf636d/css/wu-fonts-codes.css",
+		"/C/Users/steph/Downloads/fontello-1daf636d/fontello-1daf636d/css/wu-fonts-embedded.css",
+		"/C/Users/steph/my-files/dev/web/old-stuff/yawb/public/stylesheet/style.css",
+		"/C/Users/steph/my-files/dev/web/old-stuff/yawb/public/index.html",
+		"/C/Users/steph/my-files/dev/web/old-stuff/old/underworlds-deck-builder/docs/index.html",
+		"/C/Users/steph/my-files/dev/web/old-stuff/yawb/public/scripts/main.js",
+		"/C/Users/steph/Downloads/fontello-1daf636d/fontello-1daf636d/css/wu-fonts.css",
+		"/C/Users/steph/my-files/dev/web/yawb/docs/index.html",
+		"/C/Users/steph/my-files/dev/web/yawb/docs/js/bootstrap.bundle.js",
+		"/C/Users/steph/Desktop/Starter Template for Bootstrap_files/starter-template.css",
+		"/C/Users/steph/Desktop/Starter Template for Bootstrap.html",
+		"/C/Users/steph/my-files/dev/web/yawb/docs/js/bootstrap.bundle.min.js",
+		"/C/Users/steph/Desktop/brown recipe",
+		"/C/Users/steph/my-files/dev/web/yawb/package.json",
+		"/C/Users/steph/my-files/dev/web/old/underworlds-deck-builder/docs/index.html",
+		"/C/Users/steph/my-files/dev/web/friendlychat-web/web/public/scripts/main.js",
+		"/C/Users/steph/my-files/dev/web/old/underworlds-deck-builder/src/data/warbands.coffee",
+		"/C/Users/steph/my-files/dev/web/old/underworlds-deck-builder/src/data/fighters.coffee",
+		"/C/Users/steph/my-files/dev/web/old/underworlds-deck-builder/src/script.coffee",
+		"/C/Users/steph/my-files/dev/web/yawb/public/stylesheet/style.css"
+	],
+	"find":
+	{
+		"height": 28.0
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"remove",
+			"min"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/day04.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5031,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3158,
+								3158
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2354.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/day07.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1224,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								861,
+								861
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 171.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/day08.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1506,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								246,
+								246
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 114.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/day6.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1680,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								681,
+								681
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1197.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "inputs/day06.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 433,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								433,
+								433
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 932.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/day05.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1076,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								894,
+								741
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 223.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "inputs/day06-test.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 235.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/C++/C++ Single File.sublime-build",
+	"project": "project.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 282.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

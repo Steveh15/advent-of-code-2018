@@ -29,18 +29,18 @@ int main(){
 	std::cout << "Part one solution : " << remove_polarised_units(input).size() << "\n";
 
 
-	// std::vector<int> lengths;
-	// string test_str;
+	std::vector<int> lengths;
+	string test_str;
 
-	// for(char i = 'a'; i <= 'z'; i++){
-	// 	test_str = input;
-	// 	test_str.erase(std::remove_if(test_str.begin(), test_str.end(), [i](char a){
-	// 		return tolower(a) == i || toupper(a) == toupper(i);
-	// 	}),test_str.end());
-	// 	lengths.push_back(remove_polarised_units(test_str).size());
-	// }
+	for(char i = 'a'; i <= 'z'; i++){
+		test_str = input;
+		test_str.erase(std::remove_if(test_str.begin(), test_str.end(), [i](char a){
+			return tolower(a) == i || toupper(a) == toupper(i);
+		}),test_str.end());
+		lengths.push_back(remove_polarised_units(test_str).size());
+	}
 
-	// std::cout << "Part two solution : " << *std::min_element(lengths.begin(),lengths.end()) << "\n";
+	std::cout << "Part two solution : " << *std::min_element(lengths.begin(),lengths.end()) << "\n";
 
 
 	return 0;
