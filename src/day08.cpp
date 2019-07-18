@@ -5,7 +5,6 @@
 
 #include "include/get_input.hpp"
 
-
 class Metadata{
 
 public:
@@ -22,7 +21,6 @@ public:
 			metadata.push_back(*it++);
 	}
 
-
 	static int SumMetadata(const Metadata & m){
 		int sum = std::accumulate(m.metadata.begin(), m.metadata.end(),0);
 		int sum_children = std::accumulate(m.child_nodes.begin(), m.child_nodes.end(), 0, [](int sum, Metadata a){
@@ -30,7 +28,6 @@ public:
 		});
 		return sum + sum_children;
 	}
-
 
 	static int SumMetadataAlt(const Metadata & m){
 		if(m.child_nodes.size() == 0){
@@ -51,27 +48,18 @@ public:
 		}
 	}
 
-
-
-
 };
 
 
 
 
 int main(){
-
 	std::vector<int> input(get_input<int>("day08.txt"));
-
 	auto it = input.begin();
+	Metadata root(it);
 
-	Metadata parent(it);
-
-	std::cout << "Part one solution : " << Metadata::SumMetadata(parent) << "\n";
-
-	std::cout << "Part two solution : " << Metadata::SumMetadataAlt(parent) << "\n";
-
-
+	std::cout << "Part one solution : " << Metadata::SumMetadata(root) << "\n";
+	std::cout << "Part two solution : " << Metadata::SumMetadataAlt(root) << "\n";
 
 	return 0;
 }
