@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <algorithm>
+#include <map>
+#include <unordered_map>
 
 #include "include/get_input.hpp"
 
@@ -26,52 +28,148 @@ std::ostream& operator<<(std::ostream& out, const Coord& coord)
 	return out;
 }
 
+bool operator==(const Coord & lhs, const Coord & rhs)
+{
+	return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+bool operator<(const Coord & lhs, const Coord & rhs)
+{
+
+    if(lhs.x == rhs.x) return lhs.y < rhs.y;
+    else return lhs.x < rhs.x;
+}
+
+
+
+
+int distance(const Coord & x1, const Coord & x2){
+	return abs(x2.x - x1.x) + abs(x2.y-x1.y);
+}
+
+
+std::vector<Coord> closestPoints(const Coord & coord, const std::vector<Coord> & coord_list){
+    // Brute force this for now, could return later to make it log N
+    int min_distance = 10000;
+    std::vector<Coord> closest_points;
+    int dis;
+    for(auto c : coord_list){
+
+        dis = distance(c,coord);
+        if(dis < min_distance){
+            min_distance = dis;
+            closest_points.clear();
+            closest_points.push_back(c);
+        }
+        else if(dis == min_distance){
+            closest_points.push_back(c);
+        }
+    }
+
+    return closest_points;
+}
+
+
+
+
 
 
 int main(){
 
-	std::vector<Coord> coords = get_input<Coord>("day06-test.txt");
+	std::vector<Coord> coords = get_input<Coord>("day06.txt");
 
-	for(auto c : coords){
-		std::cout << c << "\n";
-	}
-
-
-	// I think we can ignore all points on the bounding rectangle and just consider points inside it, 
-	// so first thing to do is to get only those points
-
-	int min_x = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){
-  		return a.x < b.x;
-   	})->x;
-	int max_x = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){
-  		return a.x < b.x;
-   	})->x;
-	int min_y = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){
-  		return a.y < b.y;
-   	})->y;
-	int max_y = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){
-  		return a.y < b.y;
-   	})->y;
+	// for(auto c : coords){
+	// 	std::cout << c << "\n";
+	// }
 
 
-	std::vector<Coord> reduced_coords = coords;
+	// To find which points have infinite area I think we'd need to calcualte the which
+	// is a bit labourious, so instead we'll just search over a big enough grid and discard the 
+	// min/max points on the x/y axis. Hopefully that will work
 
-	reduced_coords.erase(std::remove_if(reduced_coords.begin(), reduced_coords.end(), [min_x, max_x, min_y, max_y](Coord c){
-			return c.x == min_x || c.x == max_x || c.y == min_y || c.y == max_y;
-			return true;
-		}),reduced_coords.end());
-
-	std::cout << "Min x : " << min_x << "\n" ;
-	std::cout << "Max x : " << max_x << "\n" ;
-	std::cout << "Min y : " << min_y << "\n" ;
-	std::cout << "Max y : " << max_y << "\n" ;
+	int min_x = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
+	int max_x = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
+	int min_y = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
+	int max_y = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
 
 
-	for(auto c : reduced_coords){
-		std::cout << c << "\n";
-	}
+    std:: cout << min_x << ", " << max_x << ", " << min_y << ", " << max_y << "\n";
 
 
+
+
+	// 1)  Define grid area to search over (Can't think of an easy way to do this which isn't more effort than it's worth, so just make it suitably big. 
+    //      it probably won't be bigger than the bounding box but that isn't guarenteed)
+	// 2)  Loop over each cell in area
+	// 	       For each cell find closest point and create a map entry for it (if there are two or more, don't)
+    // 3) Find which cell is referenced the most times
+    // 4) Done!
+
+
+
+    std::map<Coord, Coord> grid_closest_points;
+
+    std::vector<Coord> closest_points;
+    Coord ref;
+
+    int grid_size = 500;
+
+  //   for(int i = 0; i < grid_size; i ++){
+  //       for(int j = 0; j < grid_size; j++){
+  //           ref = {i,j};
+  //           closest_points = closestPoints(ref, coords);
+  //           if(closest_points.size()  == 1){
+  //               grid_closest_points[ref] = closest_points[0];
+  //           }
+  //           std::cout << "\n";
+  //       }
+  //   }
+
+  //   std::map<Coord, int> sum_map;
+
+  // for(std::map<Coord, Coord>::const_iterator it1 = grid_closest_points.begin(); it1 != grid_closest_points.end(); ++it1){
+  //       sum_map[it1->second] += 1;
+  //   }
+
+    // std::cout << "\n";
+    // for(auto c : sum_map){
+    //     std::cout << c.first << ", " << c.second << "\n";
+    // }
+
+
+
+
+    // Part 2
+
+
+    std::map<Coord, int> min_distance_sum_map;
+    int sum_distance;
+
+    grid_size = 500;
+    int sum = 0;
+
+       for(int i = 0; i < grid_size; i ++){
+        for(int j = 0; j < grid_size; j++){
+            ref = {i,j};
+
+            sum_distance = 0;
+            for(auto c : coords){
+                sum_distance += distance(ref,c);
+                // std::cout << ref << ", " << distance(ref,c) << "\n";
+            }
+            if(sum_distance < 10000){
+                sum += 1;
+            }
+            // closest_points = closestPoints(ref, coords);
+            // if(closest_points.size()  == 1){
+            //     grid_closest_points[ref] = closest_points[0];
+            // }
+            // std::cout << "\n";
+        }
+    }
+
+
+    std::cout << "answer : " << sum << "\n";
 
 	return 0;
 }
