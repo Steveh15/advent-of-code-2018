@@ -155,16 +155,10 @@ int main(){
             sum_distance = 0;
             for(auto c : coords){
                 sum_distance += distance(ref,c);
-                // std::cout << ref << ", " << distance(ref,c) << "\n";
             }
             if(sum_distance < 10000){
-                sum += 1;
+                ++sum;
             }
-            // closest_points = closestPoints(ref, coords);
-            // if(closest_points.size()  == 1){
-            //     grid_closest_points[ref] = closest_points[0];
-            // }
-            // std::cout << "\n";
         }
     }
 
