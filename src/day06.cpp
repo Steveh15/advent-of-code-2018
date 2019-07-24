@@ -47,6 +47,11 @@ int distance(const Coord & x1, const Coord & x2){
 	return abs(x2.x - x1.x) + abs(x2.y-x1.y);
 }
 
+double polar_angle(const Coord & x1, const Coord & x2){
+
+	return 0;
+}
+
 
 std::vector<Coord> closestPoints(const Coord & coord, const std::vector<Coord> & coord_list){
     // Brute force this for now, could return later to make it log N
@@ -137,28 +142,33 @@ int main(){
     // }
 
     // Graham scan
+	// find lowests x and highest y
+
 	std::stack<Coord> stack;
 	int min_x = 1000;
-	int min_y = 1000;
+	int max_y = -100;
 	Coord min_point;
+
 	for(auto p : coords){
 		if(p.x < min_x){
 			min_x = p.x;
-			min_y = p.y;
+			max_y = p.y;
 			min_point = {p.x,p.y};
 		}
-		else if(p.x == p.y){
-			if(p.x < min_x){
-				min_y = p.y;
+		else if(p.x == min_x){
+			if(p.y > max_y){
+				min_x = p.x;
+				max_y = p.y;
 				min_point = {p.x,p.y};
 			}
 		} 
-
 	}
+
 
 	std::cout << min_point << "\n";
 
 
+	// Sort by polar angle with min point
 
 
     // Part 2
