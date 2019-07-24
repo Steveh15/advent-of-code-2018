@@ -8,32 +8,32 @@
 
 
 
-struct Coord{
+struct Point{
 	int x;
 	int y;
 };
 
-std::istream& operator>>(std::istream& is, Coord& coord)
+std::istream& operator>>(std::istream& is, Point& coord)
 {
 	char c;
 	int x,y;
 	is >> x >> c >> y;
-	coord = Coord{x,y};
+	coord = Point{x,y};
 	return is;
 }
 
-std::ostream& operator<<(std::ostream& out, const Coord& coord)
+std::ostream& operator<<(std::ostream& out, const Point& coord)
 {
 	out << "[" << coord.x << ", " << coord.y << "]";
 	return out;
 }
 
-bool operator==(const Coord & lhs, const Coord & rhs)
+bool operator==(const Point & lhs, const Point & rhs)
 {
 	return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
-bool operator<(const Coord & lhs, const Coord & rhs)
+bool operator<(const Point & lhs, const Point & rhs)
 {
 
 	if(lhs.x == rhs.x) return lhs.y < rhs.y;
@@ -41,22 +41,29 @@ bool operator<(const Coord & lhs, const Coord & rhs)
 }
 
 
-
-
-int distance(const Coord & x1, const Coord & x2){
+int distance(const Point & x1, const Point & x2){
 	return abs(x2.x - x1.x) + abs(x2.y-x1.y);
 }
 
-double polar_angle(const Coord & x1, const Coord & x2){
 
-	return 0;
+double orientation(const Point & p0, const Point & p1, const Point & p2){
+	// Cross product of the vectors from p0 to p1/p2.
+	// If positive, then counter clockwise turn
+	// If negative, then clockwise turn
+	int val = (p1.x - p0.x) * (p2.y - p0.y) - 
+              (p2.x - p0.x) * (p1.y - p0.y); 
+    if (val == 0) return 0;
+    return (val > 0) ? -1: 1;
+
+	// -1 : clockwise
+    //	0 : in a line
+    //  1 : counter clockwise
 }
 
-
-std::vector<Coord> closestPoints(const Coord & coord, const std::vector<Coord> & coord_list){
+std::vector<Point> closestPoints(const Point & coord, const std::vector<Point> & coord_list){
     // Brute force this for now, could return later to make it log N
 	int min_distance = 10000;
-	std::vector<Coord> closest_points;
+	std::vector<Point> closest_points;
 	int dis;
 	for(auto c : coord_list){
 
@@ -75,31 +82,21 @@ std::vector<Coord> closestPoints(const Coord & coord, const std::vector<Coord> &
 }
 
 
+bool point_in(const Point & p, const std::vector<Point> ps){
 
+		for(auto c : ps){
+			if(p == c){
+				return true;
+			}
+		}
+		return false;
+}
 
 
 
 int main(){
 
-	std::vector<Coord> coords = get_input<Coord>("day06.txt");
-
-	// for(auto c : coords){
-	// 	std::cout << c << "\n";
-	// }
-
-
-	// To find which points have infinite area I think we'd need to calcualte the which
-	// is a bit labourious, so instead we'll just search over a big enough grid and discard the 
-	// min/max points on the x/y axis. Hopefully that will work
-
-	// int min_x = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
-	// int max_x = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
-	// int min_y = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
-	// int max_y = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
-
-
-	// std:: cout << min_x << ", " << max_x << ", " << min_y << ", " << max_y << "\n";
-
+	std::vector<Point> points = get_input<Point>("day06.txt");
 
 
 
@@ -112,69 +109,85 @@ int main(){
 
 
 
-	std::map<Coord, Coord> grid_closest_points;
+	std::map<Point, Point> grid_closest_points;
 
-	std::vector<Coord> closest_points;
-	Coord ref;
+	std::vector<Point> closest_points;
+	Point ref;
 
 	int grid_size = 500;
 
-  //   for(int i = 0; i < grid_size; i ++){
-  //       for(int j = 0; j < grid_size; j++){
-  //           ref = {i,j};
-  //           closest_points = closestPoints(ref, coords);
-  //           if(closest_points.size()  == 1){
-  //               grid_closest_points[ref] = closest_points[0];
-  //           }
-  //           std::cout << "\n";
-  //       }
-  //   }
+    for(int i = 0; i < grid_size; i ++){
+        for(int j = 0; j < grid_size; j++){
+            ref = {i,j};
+            closest_points = closestPoints(ref, points);
+            if(closest_points.size()  == 1){
+                grid_closest_points[ref] = closest_points[0];
+            }
+        }
+    }
 
-  //   std::map<Coord, int> sum_map;
 
-  // for(std::map<Coord, Coord>::const_iterator it1 = grid_closest_points.begin(); it1 != grid_closest_points.end(); ++it1){
-  //       sum_map[it1->second] += 1;
-  //   }
 
-    // std::cout << "\n";
-    // for(auto c : sum_map){
-    //     std::cout << c.first << ", " << c.second << "\n";
-    // }
+    std::map<Point, int> sum_map;
 
-    // Graham scan
-	// find lowests x and highest y
+  	for(std::map<Point, Point>::const_iterator it1 = grid_closest_points.begin(); it1 != grid_closest_points.end(); ++it1){
+        sum_map[it1->second] += 1;
+    }
 
-	std::stack<Coord> stack;
-	int min_x = 1000;
-	int max_y = -100;
-	Coord min_point;
+    // Find convex hull (Graham scan)
+    	Point p0 = {1000,-1000};
+	for(auto p : points){
+		if(p.y > p0.y) p0 = p;
+		else if(p.y == p0.y) if(p.x < p0.x) p0 = p;
+	}
 
-	for(auto p : coords){
-		if(p.x < min_x){
-			min_x = p.x;
-			max_y = p.y;
-			min_point = {p.x,p.y};
+	std::sort(points.begin(), points.end(), [p0](Point a, Point b){
+		return orientation(p0,a,b) >= 0;
+	});
+
+
+	std::vector<Point> S;
+	S.push_back(points[0]);
+	S.push_back(points[1]);
+	S.push_back(points[2]);
+
+	for(int i = 3; i < points.size(); i++){
+		while(orientation(S[S.size()-2], S[S.size()-1], points[i]) != 1)
+			S.pop_back();
+		S.push_back(points[i]);
+	}
+
+	// for(auto p : S){
+	// 	std::cout << p << "\n";
+	// }
+
+	// Remove points on hull
+
+
+
+   for(auto c : sum_map){
+        std::cout << c.first << ", " << c.second << "\n";
+    }
+    std::cout << "\n";
+	for(std::map<Point, int>::iterator it = sum_map.begin(); it != sum_map.end();){
+		if(point_in(it->first, S)){
+			sum_map.erase(it++);
+		}else {
+			++it;
 		}
-		else if(p.x == min_x){
-			if(p.y > max_y){
-				min_x = p.x;
-				max_y = p.y;
-				min_point = {p.x,p.y};
-			}
-		} 
 	}
 
 
-	std::cout << min_point << "\n";
+   for(auto c : sum_map){
+        std::cout << c.first << ", " << c.second << "\n";
+    }
 
-
-	// Sort by polar angle with min point
 
 
     // Part 2
 
 
-    // std::map<Coord, int> min_distance_sum_map;
+    // std::map<Point, int> min_distance_sum_map;
     // int sum_distance;
 
     // grid_size = 500;

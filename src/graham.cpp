@@ -73,7 +73,7 @@ Point nextToTop(std::stack<Point> &S)
 
 int main(){
 
-	std::vector<Point> points = get_input<Point>("day06-test.txt");
+	std::vector<Point> points = get_input<Point>("day06.txt");
 
 
 
@@ -94,24 +94,24 @@ int main(){
 
 	//
 
-	std::stack<Point> convex_hull;
-	convex_hull.push(points[0]);
-	convex_hull.push(points[1]);
-	convex_hull.push(points[2]);
+	// std::stack<Point> convex_hull;
+	// convex_hull.push(points[0]);
+	// convex_hull.push(points[1]);
+	// convex_hull.push(points[2]);
 
-	for(int i = 3; i < points.size(); i++){
-		while(orientation(nextToTop(convex_hull), convex_hull.top(), points[i]) != 1)
-			convex_hull.pop();
-		convex_hull.push(points[i]);
-	}
+	// for(int i = 3; i < points.size(); i++){
+	// 	while(orientation(nextToTop(convex_hull), convex_hull.top(), points[i]) != 1)
+	// 		convex_hull.pop();
+	// 	convex_hull.push(points[i]);
+	// }
 
-	while (!convex_hull.empty()) 
-   { 
-       Point p = convex_hull.top(); 
-       std::cout << "(" << p.x << ", " << p.y <<")" << std::endl; 
-       convex_hull.pop(); 
-   } 
-	std::cout << "\n";
+	// while (!convex_hull.empty()) 
+ //   { 
+ //       Point p = convex_hull.top(); 
+ //       std::cout << "(" << p.x << ", " << p.y <<")" << std::endl; 
+ //       convex_hull.pop(); 
+ //   } 
+	// std::cout << "\n";
 
 	std::vector<Point> S;
 	S.push_back(points[0]);
