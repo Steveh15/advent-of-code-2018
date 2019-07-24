@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
-#include <unordered_map>
+#include <stack>
 
 #include "include/get_input.hpp"
 
@@ -15,11 +15,11 @@ struct Coord{
 
 std::istream& operator>>(std::istream& is, Coord& coord)
 {
-    char c;
-    int x,y;
-   	is >> x >> c >> y;
-    coord = Coord{x,y};
-    return is;
+	char c;
+	int x,y;
+	is >> x >> c >> y;
+	coord = Coord{x,y};
+	return is;
 }
 
 std::ostream& operator<<(std::ostream& out, const Coord& coord)
@@ -36,8 +36,8 @@ bool operator==(const Coord & lhs, const Coord & rhs)
 bool operator<(const Coord & lhs, const Coord & rhs)
 {
 
-    if(lhs.x == rhs.x) return lhs.y < rhs.y;
-    else return lhs.x < rhs.x;
+	if(lhs.x == rhs.x) return lhs.y < rhs.y;
+	else return lhs.x < rhs.x;
 }
 
 
@@ -50,23 +50,23 @@ int distance(const Coord & x1, const Coord & x2){
 
 std::vector<Coord> closestPoints(const Coord & coord, const std::vector<Coord> & coord_list){
     // Brute force this for now, could return later to make it log N
-    int min_distance = 10000;
-    std::vector<Coord> closest_points;
-    int dis;
-    for(auto c : coord_list){
+	int min_distance = 10000;
+	std::vector<Coord> closest_points;
+	int dis;
+	for(auto c : coord_list){
 
-        dis = distance(c,coord);
-        if(dis < min_distance){
-            min_distance = dis;
-            closest_points.clear();
-            closest_points.push_back(c);
-        }
-        else if(dis == min_distance){
-            closest_points.push_back(c);
-        }
-    }
+		dis = distance(c,coord);
+		if(dis < min_distance){
+			min_distance = dis;
+			closest_points.clear();
+			closest_points.push_back(c);
+		}
+		else if(dis == min_distance){
+			closest_points.push_back(c);
+		}
+	}
 
-    return closest_points;
+	return closest_points;
 }
 
 
@@ -87,13 +87,13 @@ int main(){
 	// is a bit labourious, so instead we'll just search over a big enough grid and discard the 
 	// min/max points on the x/y axis. Hopefully that will work
 
-	int min_x = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
-	int max_x = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
-	int min_y = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
-	int max_y = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
+	// int min_x = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
+	// int max_x = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.x < b.x;})->x;
+	// int min_y = std::min_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
+	// int max_y = std::max_element(coords.begin(),coords.end(), [](Coord a, Coord b){return a.y < b.y;})->y;
 
 
-    std:: cout << min_x << ", " << max_x << ", " << min_y << ", " << max_y << "\n";
+	// std:: cout << min_x << ", " << max_x << ", " << min_y << ", " << max_y << "\n";
 
 
 
@@ -107,12 +107,12 @@ int main(){
 
 
 
-    std::map<Coord, Coord> grid_closest_points;
+	std::map<Coord, Coord> grid_closest_points;
 
-    std::vector<Coord> closest_points;
-    Coord ref;
+	std::vector<Coord> closest_points;
+	Coord ref;
 
-    int grid_size = 500;
+	int grid_size = 500;
 
   //   for(int i = 0; i < grid_size; i ++){
   //       for(int j = 0; j < grid_size; j++){
@@ -136,34 +136,56 @@ int main(){
     //     std::cout << c.first << ", " << c.second << "\n";
     // }
 
+    // Graham scan
+	std::stack<Coord> stack;
+	int min_x = 1000;
+	int min_y = 1000;
+	Coord min_point;
+	for(auto p : coords){
+		if(p.x < min_x){
+			min_x = p.x;
+			min_y = p.y;
+			min_point = {p.x,p.y};
+		}
+		else if(p.x == p.y){
+			if(p.x < min_x){
+				min_y = p.y;
+				min_point = {p.x,p.y};
+			}
+		} 
+
+	}
+
+	std::cout << min_point << "\n";
+
 
 
 
     // Part 2
 
 
-    std::map<Coord, int> min_distance_sum_map;
-    int sum_distance;
+    // std::map<Coord, int> min_distance_sum_map;
+    // int sum_distance;
 
-    grid_size = 500;
-    int sum = 0;
+    // grid_size = 500;
+    // int sum = 0;
 
-       for(int i = 0; i < grid_size; i ++){
-        for(int j = 0; j < grid_size; j++){
-            ref = {i,j};
+    //    for(int i = 0; i < grid_size; i ++){
+    //     for(int j = 0; j < grid_size; j++){
+    //         ref = {i,j};
 
-            sum_distance = 0;
-            for(auto c : coords){
-                sum_distance += distance(ref,c);
-            }
-            if(sum_distance < 10000){
-                ++sum;
-            }
-        }
-    }
+    //         sum_distance = 0;
+    //         for(auto c : coords){
+    //             sum_distance += distance(ref,c);
+    //         }
+    //         if(sum_distance < 10000){
+    //             ++sum;
+    //         }
+    //     }
+    // }
 
 
-    std::cout << "answer : " << sum << "\n";
+    // std::cout << "answer : " << sum << "\n";
 
 	return 0;
 }
