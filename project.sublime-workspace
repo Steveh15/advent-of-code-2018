@@ -52,28 +52,11 @@
 	"buffers":
 	[
 		{
-			"file": "src/day06.cpp",
-			"settings":
-			{
-				"buffer_size": 4502,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/graham.cpp",
-			"settings":
-			{
-				"buffer_size": 1114,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "src/day07.cpp",
 			"settings":
 			{
-				"buffer_size": 1224,
+				"buffer_size": 3236,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
@@ -174,6 +157,10 @@
 		"selected_items":
 		[
 			[
+				"cl",
+				"Project: Close"
+			],
+			[
 				"clo",
 				"Project: Close"
 			],
@@ -248,11 +235,15 @@
 	],
 	"file_history":
 	[
+		"/Z/Genae/1311  Dural Closure - Pilot & PMCF Study/Analysis/Results + Reports/R/Table 2/calculated.CSV",
+		"/Z/Genae/1311  Dural Closure - Pilot & PMCF Study/Analysis/Results + Reports/SAS/Table 2/calculated.CSV",
+		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day08.cpp",
+		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day07.cpp",
+		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/graham.cpp",
+		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day06.cpp",
 		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/inputs/day06-test.txt",
 		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day05.cpp",
 		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/inputs/day06.txt",
-		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day08.cpp",
-		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day07.cpp",
 		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day04.cpp",
 		"/C/Users/stephen.mackie/MyFiles/My Documents/Other/repos/advent-of-code-2018/src/day6.cpp",
 		"/C/Users/steph/my-files/dev/cpp-learning/advent-of-code-2018/inputs/day06.txt",
@@ -371,11 +362,7 @@
 		"/C/Users/steph/my-files/dev/web/old-stuff/yawb/public/scripts/main.js",
 		"/C/Users/steph/Downloads/fontello-1daf636d/fontello-1daf636d/css/wu-fonts.css",
 		"/C/Users/steph/my-files/dev/web/yawb/docs/index.html",
-		"/C/Users/steph/my-files/dev/web/yawb/docs/js/bootstrap.bundle.js",
-		"/C/Users/steph/Desktop/Starter Template for Bootstrap_files/starter-template.css",
-		"/C/Users/steph/Desktop/Starter Template for Bootstrap.html",
-		"/C/Users/steph/my-files/dev/web/yawb/docs/js/bootstrap.bundle.min.js",
-		"/C/Users/steph/Desktop/brown recipe"
+		"/C/Users/steph/my-files/dev/web/yawb/docs/js/bootstrap.bundle.js"
 	],
 	"find":
 	{
@@ -394,6 +381,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"current_st",
 			"Coord",
 			"remove",
 			"min"
@@ -415,82 +403,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/day06.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4502,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								4502
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 526.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/graham.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1114,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1056,
-								1056
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 798.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "src/day07.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1224,
+						"buffer_size": 3236,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								334,
-								334
+								2300,
+								2300
 							]
 						],
 						"settings":
@@ -499,10 +429,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 456.0,
+						"translation.y": 1739.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -551,7 +481,7 @@
 	"project": "project.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 52.0
 	},
 	"save_all_on_build": true,
 	"select_file":
