@@ -1,11 +1,10 @@
-// TestConsoleApp.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include <string>
-#include <map>
+
+//
+//		This one runs very slow in debug mode, consider running in release to get the answer quicker
+//
 
 
 struct ID
@@ -15,22 +14,19 @@ struct ID
 	int size;
 };
 
-bool operator==(const ID& lhs, const ID& rhs)
-{
-	return lhs.x == rhs.x && lhs.y == rhs.y && lhs.size == rhs.size;
-}
+int sum_area(const int& x, const int& y, const int& width, const std::vector<std::vector<int>> & grid) {
 
-bool operator<(const ID& lhs, const ID& rhs)
-{
+	int power_sum = 0;
 
-	if (lhs.x == rhs.x) {
-		if (lhs.y == rhs.y) {
-			return  lhs.size < rhs.size;
+	for (int i = x; i < x + width; i++) {
+		for (int j = y; j < y + width; j++) {
+			power_sum += grid[i][j];
 		}
-		else return lhs.y < rhs.y;
 	}
-	else return lhs.x < rhs.x;
+
+	return power_sum;
 }
+
 
 int power_level(const int& x, const int& y, const int& serial_number) {
 	return ((((10 + x) * y + serial_number) * (10 + x) / 100) % 10) - 5;
@@ -40,9 +36,13 @@ int main()
 {
 
 	int serial_number = 3999;
-
-	int power_grid[300][300];
 	int max_grid_size = 300;
+
+	std::vector<std::vector<int>> power_grid;
+
+	power_grid.resize(max_grid_size);
+	for (auto& vi : power_grid)
+		vi.resize(max_grid_size);
 
 	for (int x = 0; x < max_grid_size; x++) {
 		for (int y = 0; y < max_grid_size; y++) {
@@ -50,30 +50,21 @@ int main()
 		}
 	}
 
-
 	//
 	//	Part one
 	//
 
-	int power_sum = 0;
+	int area = 0;
 	int max_power_sum = 0;
 	ID max_power_id;
 	for (int x = 0; x < max_grid_size - 3; x++) {
 		for (int y = 0; y < max_grid_size - 3; y++) {
-
-			power_sum = 0;
-
-			for (int i = x; i < x + 3; i++) {
-				for (int j = y; j < y + 3; j++) {
-					power_sum += power_grid[i][j];
-				}
-			}
-
-			if (power_sum > max_power_sum) {
-				max_power_sum = power_sum;
+			
+			area = sum_area(x, y, 3, power_grid);
+			if (area > max_power_sum) {
+				max_power_sum = area;
 				max_power_id = { x + 1,y + 1,3 };
 			}
-
 		}
 	}
 
@@ -85,31 +76,41 @@ int main()
 	//	Part two
 	//
 
+	area = 0;
 	max_power_sum = 0;
 	int max_width, max_coord;
 	for (int x = 0; x < max_grid_size; x++) {
 		for (int y = 0; y < max_grid_size; y++) {
-			power_sum = 0;
+
 			max_coord = std::max(x, y);
 			max_width = max_grid_size - max_coord;
 
 			for (int width = 1; width <= max_width; width++) {
 
-				for (int i = x; i < x + width; i++) {
-					for (int j = y; j < y + width; j++) {
-						power_sum += power_grid[i][j];
-					}
+				area = sum_area(x, y, width, power_grid);
+
+				if (area > max_power_sum) {
+					max_power_sum = area;
+					max_power_id = { x + 1, y + 1, width };
 				}
-				if (power_sum > max_power_sum) {
-					max_power_sum = power_sum;
-					max_power_id = { x + 1,y + 1,width };
-				}
+
 			}
 		}
 	}
 
-	// 224,222,27
+
 	std::cout << "Part two ID (including width) : " << max_power_id.x << "," << max_power_id.y << "," << max_power_id.size << "\n";
 
 	return 0;
 }
+
+
+/*
+
+	Things I've learnt
+		Again, be careful when using normal arrays. In this case a [300][300] array was nearly enough to cause
+		stack overflow according to visual studio
+		Sometimes things don't work for any obvious reason
+
+
+*/
