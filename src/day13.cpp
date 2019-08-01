@@ -2,8 +2,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <list>
+#include <algorithm>
 
 #include "include/get_input.hpp"
+
+
+	class UniqueID {
+	protected:
+		static int nextID;
+	public:
+
+		static int getID() {
+			int id = nextID;
+			nextID += 1;
+			return id;
+		}
+	};
+
+	int UniqueID::nextID = 0;
 
 	class Vector2D
 	{
@@ -49,19 +66,27 @@
 		Vector2D location;
 		Direction direction;
 		Turn next_turn;
+		int id;
 
 
 		Cart();
 		Cart(const Vector2D& _location, const int& _direction) : location(_location) {
 			direction = (Direction)_direction;
 			next_turn = Turn::left;
+			id = UniqueID::getID();
 		}
 		friend std::ostream& operator<<(std::ostream& os, const Cart& cart);
+		friend bool operator==(const Cart& lhs, const Cart& rhs);
 	};
 	std::ostream& operator<<(std::ostream& os, const Cart& cart)
 	{
 		os << "Position : " << cart.location << ", Direction : " << (int)cart.direction << ", Next turn : " << (int)cart.next_turn;
 		return os;
+	}
+
+	bool operator==(const Cart& lhs, const Cart& rhs)
+	{
+		return lhs.id == rhs.id;;
 	}
 
 
@@ -152,6 +177,93 @@
 		return collision_found;
 	}
 
+
+
+	// An alternative version of advance time step used to identify crashed carts, easier than trying to solve both questions at once
+	std::list<int> AdvanceTimeStepAlt(const std::vector<std::string>& track, std::vector<Cart>& cart_list) {
+
+		bool is_crash = false;
+
+		std::list<int> crashed_carts;
+
+		// Stop advancing when there is a crash
+		if (!is_crash) {
+
+			for (auto& c : cart_list) {
+				if (c.direction == Cart::Direction::right) {
+					c.location.x += 1;
+				}
+				else if (c.direction == Cart::Direction::left) {
+					c.location.x -= 1;
+				}
+				else if (c.direction == Cart::Direction::up) {
+					c.location.y -= 1;
+				}
+				else if (c.direction == Cart::Direction::down) {
+					c.location.y += 1;
+				}
+
+				if (track[c.location.y][c.location.x] == '+') {
+					if (c.direction == Cart::Direction::up) {
+						if (c.next_turn == Cart::Turn::left) c.direction = Cart::Direction::left;
+						else if (c.next_turn == Cart::Turn::right) c.direction = Cart::Direction::right;
+					}
+					else if (c.direction == Cart::Direction::down) {
+						if (c.next_turn == Cart::Turn::left) c.direction = Cart::Direction::right;
+						else if (c.next_turn == Cart::Turn::right) c.direction = Cart::Direction::left;
+					}
+					else if (c.direction == Cart::Direction::left) {
+						if (c.next_turn == Cart::Turn::left) c.direction = Cart::Direction::down;
+						else if (c.next_turn == Cart::Turn::right) c.direction = Cart::Direction::up;
+					}
+					else if (c.direction == Cart::Direction::right) {
+						if (c.next_turn == Cart::Turn::left) c.direction = Cart::Direction::up;
+						else if (c.next_turn == Cart::Turn::right) c.direction = Cart::Direction::down;
+					}
+
+					if (c.next_turn == Cart::Turn::left) c.next_turn = Cart::Turn::ahead;
+					else if (c.next_turn == Cart::Turn::ahead) c.next_turn = Cart::Turn::right;
+					else if (c.next_turn == Cart::Turn::right) c.next_turn = Cart::Turn::left;
+				}
+
+				if (track[c.location.y][c.location.x] == '\\') {
+					if (c.direction == Cart::Direction::up) c.direction = Cart::Direction::left;
+					else if (c.direction == Cart::Direction::right) c.direction = Cart::Direction::down;
+					else if (c.direction == Cart::Direction::down) c.direction = Cart::Direction::right;
+					else if (c.direction == Cart::Direction::left) c.direction = Cart::Direction::up;
+				}
+
+				if (track[c.location.y][c.location.x] == '/') {
+					if (c.direction == Cart::Direction::up) c.direction = Cart::Direction::right;
+					else if (c.direction == Cart::Direction::right) c.direction = Cart::Direction::up;
+					else if (c.direction == Cart::Direction::down) c.direction = Cart::Direction::left;
+					else if (c.direction == Cart::Direction::left) c.direction = Cart::Direction::down;
+
+				}
+
+				for (int i = 0; i < cart_list.size(); i++) {
+					for (int j = i + 1; j < cart_list.size(); j++) {
+						if (i != j) {
+							if (cart_list[i].location == cart_list[j].location) {
+								crashed_carts.push_back(cart_list[i].id);
+								crashed_carts.push_back(cart_list[j].id);
+								is_crash == true;
+							}
+						}
+					}
+				}
+
+			}
+
+		}
+
+
+		return crashed_carts;
+	}
+
+
+
+
 	void DrawTrack(std::vector<std::string> track, const std::vector<Cart>& cart_list) {
 		for (const auto& c : cart_list) {
 			track[c.location.y][c.location.x] = '@';
@@ -171,7 +283,6 @@
 
 		track_height = track.size();
 		track_width = track[0].length();
-
 
 		std::vector<Cart> cart_list;
 		// Mercifully it appears no tracks start on a cross road.
@@ -197,13 +308,46 @@
 			}
 		}
 
-
+		std::vector<Cart> cart_list_initial = cart_list;
 
 
 		// Part one solution
+		std::cout << "Part one : \n";
 		while (!AdvanceTimeStep(track, cart_list)) {}
+		std::cout << "\n";
+
+		// Part two
+
+		// Reset carts for part two
+		cart_list = cart_list_initial;
 
 
+		std::list<int> crashed_carts;
+
+
+		while (cart_list.size() > 1) {
+			crashed_carts = AdvanceTimeStepAlt(track, cart_list);
+			if (!crashed_carts.empty()) {
+				for (auto i : crashed_carts) {
+					cart_list.erase(std::remove_if(cart_list.begin(), cart_list.end(), [i](Cart& c) {
+						return c.id == i;
+					}), cart_list.end());
+				}
+			}
+		}
+
+		std::cout << "Part two : \n";
+		std::cout << "Last cart located at " << cart_list[0].location;
+
+
+		/*
+		Despite giving write answers this code isn't entirely complete. Doesn't take into account current location when
+		performing turn move (as far as I can tell).
+		Also it's just generally very ineffecient.
+		*/
+
+		std::cout << "\n";
+		std::cout << "\n";
 
 
 	}
